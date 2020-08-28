@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome T Wingtip Toys</h1>
+    <p>You were logged into this website using Azure Active Directory</p>
+
+</div>
+<div class="card-body">
+
+    @{
+
+        if (@User.Identity.IsAuthenticated)
+            {
+                var claims = User.Claims.ToList();
+                <p>@User.Identity.Name</p>
+                <table class="table table-sm table-bordered">
+                    <tr>
+                        <th>Subject</th>
+                        <th>Issuer</th>
+                        <th>Type</th>
+                        <th>Value</th>
+                    </tr>
+                    
+                    @foreach (var claim1 in @claims.OrderBy(x => x.Type))
+                        {
+                            <tr>
+                                <td>@claim1.Subject.Name</td>
+                                <td>@claim1.Issuer</td>
+                                <td>@claim1.Type</td>
+                                <td>@claim1.Value</td>
+                            </tr>
+                        }
+                </table>
+            }
+
+        }
+</div>
